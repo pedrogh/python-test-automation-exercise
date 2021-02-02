@@ -9,6 +9,11 @@ import logging
 logging.basicConfig(level=logging.INFO)
 mylogger = logging.getLogger()
 
+'''
+Tests:
+1. The correct fields are visible when someone clicks on the 'Pricing' link in the main page.
+'''
+
 def test_pricing_form_displays_and_has_correct_fields(podiumHomePage, podiumPricingPage):
   # See a different way of finding an element and clicking on it
   # in tests/test_podium_login_page.py

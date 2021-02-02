@@ -28,7 +28,7 @@ def browser():
   # --- Scenario 1
   # --- Uncomment the line below to see tests running outside of Docker
   # --- Comment out the code for scenarios 2 and 3 below. 
-  # driver = Chrome()
+  driver = Chrome()
   # --- end of Scenario 1
 
   # --- Scenario 2
@@ -45,12 +45,12 @@ def browser():
   # --- Scenario 3
   # --- comment from below to see tests running within Docker
 
-  chrome_options = Options()
-  chrome_options.add_argument('--headless')
-  chrome_options.add_argument('--no-sandbox')
-  chrome_options.add_argument('--disable-dev-shm-usage')
-  driver = Chrome(chrome_options=chrome_options)
-  driver.set_window_size(1920, 1080)
+  # chrome_options = Options()
+  # chrome_options.add_argument('--headless')
+  # chrome_options.add_argument('--no-sandbox')
+  # chrome_options.add_argument('--disable-dev-shm-usage')
+  # driver = Chrome(chrome_options=chrome_options)
+  # driver.set_window_size(1920, 1080)
   # --- comment from above to see tests running in Docker
   # --- end of Scenario 3
 

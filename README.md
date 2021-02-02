@@ -1,8 +1,5 @@
 # Exercise to test Podium's Home Page
 
-## Git repo
-
-
 ## To run the tests
 Scenarios 2 and 3 below require you to have a version of Docker installed and running on your machine.
 
@@ -10,8 +7,8 @@ On my machine, a MacBook Pro, I use "Docker Desktop" v3.1.0
 
 ### Scenario 1
 If your machine has installed:
-Chrome driver at least version 86
-Python version at least 3.6
+
+Chrome driver at least version 86 and Python version at least 3.6
 
 You can try running the tests if either chromedriver or python are around 8x and 3.x respectively.
 
@@ -55,7 +52,7 @@ test_podium_pricing_page.py
 For all scenarios a report file called `report.html` is created that gives us a report of the tests ran.  You can open it with your favorite browser.
 
 ### Scenario 2
-If your machine does not have a version of chromedriver installed but has a version of python version at least 3.6
+If your machine does not have a version of chromedriver installed but has at least python 3.x
 
 ## Install (and run) a Dockerized version of chromedriver
 
@@ -92,7 +89,7 @@ CONTAINER ID   IMAGE                              COMMAND                  CREAT
 On my machine port `5900` is being mapped to `port 0.0.0.0:5501`
 
 - Start `vnC Viewer`
-- Create a new connection by pressing `cmd+n` or select "New conection" from the `File` menu.
+- Create a new connection by pressing `cmd+N` or select "New conection" from the `File` menu.
 - In the `VNC Server` field enter the port number.  In this case `port 0.0.0.0:5501`
 - In the Name field enter a name
 ![VNC Connection Configuration](./readme_images/vnc_settings.png)
@@ -111,26 +108,26 @@ On my machine port `5900` is being mapped to `port 0.0.0.0:5501`
 ## Change the file conftest.py
 Now you are almost ready to run the tests on your machine and see them running inside the Dockerized version of chromedriver.
 
-- In the code open the file `tests/conftest.py` and comment the code for `Scenario 1` and uncomment the code for `Scenario 2` as follows:
+- In the code open the file `tests/conftest.py` and comment out the code for `Scenario 1` and uncomment the code for `Scenario 2` as follows:
 ```
 # --- Scenario 1
-  # --- Uncomment the line below to see tests running outside of Docker
-  # --- Comment out the code for scenarios 2 and 3 below. 
-  # driver = Chrome()
-  # --- end of Scenario 1
+# --- Uncomment the line below to see tests running outside of Docker
+# --- Comment out the code for scenarios 2 and 3 below. 
+# driver = Chrome()
+# --- end of Scenario 1
 
-  # --- Scenario 2
-  # --- Uncomment the lines below to see tests running outside of Docker
-  # --- Comment out the code for scenarios 1 above and 3 below. 
+# --- Scenario 2
+# --- Uncomment the lines below to see tests running outside of Docker
+# --- Comment out the code for scenarios 1 above and 3 below. 
 
-  chrome_options = Options()
-  chrome_options.add_argument('--no-sandbox')
-  chrome_options.add_argument('--disable-dev-shm-usage')
-  driver = webdriver.Remote("http://127.0.0.1:4444/wd/hub", options=chrome_options)
-  driver = Chrome(chrome_options=chrome_options)
-  # driver.set_window_size(1920, 1080)
-  # --- end of Scenario 2
-  ```
+chrome_options = Options()
+chrome_options.add_argument('--no-sandbox')
+chrome_options.add_argument('--disable-dev-shm-usage')
+driver = webdriver.Remote("http://127.0.0.1:4444/wd/hub", options=chrome_options)
+driver = Chrome(chrome_options=chrome_options)
+# driver.set_window_size(1920, 1080)
+# --- end of Scenario 2
+```
 - save the file
 
 ## Run the tests
@@ -142,15 +139,17 @@ If for some reason the tests fail it might be because the default size of the Ch
 
 ![Podium menu bar](./readme_images/podium_menu.png)
 
-In that case uncomment the line `# driver.set_window_size(1920, 1080)` in the file `tests/conftest.py`, save the file, and run the tests again.
+In that case also uncomment the line `# driver.set_window_size(1920, 1080)` in the file `tests/conftest.py`, save the file, and run the tests again.
 
 ### Scenario 3
-Use this scenario if your machine does not have a version of chromedriver installed nor does it have a python version at least 3.6
+Use this scenario if your machine does not have a version of chromedriver installed nor does it have at leat python version 3.6.
 
 For this you will be creating a Docker image that contains chromedriver, python and all the packages necessary to run the tests.
 
 ## Create the Docker image
 From the root directory of the project run `docker build -t podium:1 .`
+
+Do not forget the dot '.' at the end of that command.
 
 ## Check the Docker image was created
 Once the image is done building run the command `docker images`.  You should see a list of the available Docker images in your machine.  You should see the new image, `podium` with `TAG` 1, in the list

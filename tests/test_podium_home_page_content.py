@@ -10,6 +10,13 @@ from selenium.common.exceptions import NoSuchElementException
 logging.basicConfig(level=logging.INFO)
 mylogger = logging.getLogger()
 
+'''
+Tests:
+1. The Podium logo is visible
+2. The prompt to talk with someone at Podium is visible.
+3. The main menu 'Products' lists all the expected elements.
+'''
+
 IMAGES = {
     'pdmlogo_black.png': 'PDM_LOGO'
 }

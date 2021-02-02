@@ -9,6 +9,11 @@ import time
 logging.basicConfig(level=logging.INFO)
 mylogger = logging.getLogger()
 
+'''
+Tests:
+1. The Login page and the subsequent fields show after entering email or mobile number.
+'''
+
 def test_login_form_fields_work(podiumHomePage, podiumLoginPage):
   # See a different way of finding an element and clicking on it
   # in tests/test_podium_pricing_page.py
