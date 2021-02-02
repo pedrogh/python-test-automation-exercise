@@ -55,20 +55,20 @@ For all scenarios a report file called `report.html` is created that gives us a 
 ### Scenario 2
 If your machine does not have a version of chromedriver installed but has at least python 3.x
 
-## Install (and run) a Dockerized version of chromedriver
+#### Install (and run) a Dockerized version of chromedriver
 
 `docker run -it -p 4444:4444 -p 0:5900 -v /dev/shm:/dev/shm selenium/standalone-chrome-debug`
 
-## Install and configure VNC viewer
+#### Install and configure VNC viewer
 Download from [realvnc](https://www.realvnc.com/en/connect/download/viewer/).  Install the application on your machine.
 
 **Note** 
 
-If on a Mac you might need to give permissions to the app in Preferences/Security & Privacy/
+If you are on a Mac you might need to give permissions to the app in Preferences/Security & Privacy
 
 ![Security & Privacy](./readme_images/security_and_privacy.png)
 
-## Run the chromedriver Docker container
+#### Run the chromedriver Docker container
 The chromedriver container should already be running on your machine.  See step above titled "Install (and run) a Dockerized version of chromedriver"
 
 
@@ -76,7 +76,7 @@ If for some reason you have to run it again use
 
 `docker run -d -p 4444:4444 -p 0:5900 -v /dev/shm:/dev/shm selenium/standalone-chrome-debug`
 
-## Configure VNC viewer
+#### Configure VNC viewer
 - See what port is the chromedriver exposing to the host machine, run
 `docker ps`
 
@@ -97,16 +97,17 @@ On my machine port `5900` is being mapped to `port 0.0.0.0:5501`
 - Click 'OK'
 - Launch the connection. If the chromedriver started correctly the first time you should see a dialog warning you about an "unencrypted connection"
 - Tick on "Don't warn me about this again"
-- Click on the "continue" button
+- Click on the "Continue" button
 ![VNC Connection Configuration](./readme_images/unencrypted_connection.png)
 - The first time after you create a connection you will be prompted for a password.
 - Enter the password `secret`
 - Tick on "Remember password"
 - Click 'OK'
+![VNC Connection Configuration](./readme_images/vnc_password.png)
 - If everything went well you'll see a window that displays this symbol:
 ![VNC Connection Configuration](./readme_images/vnc_connection_symbol.png)
 
-## Change the file conftest.py
+#### Change the file conftest.py
 Now you are almost ready to run the tests on your machine and see them running inside the Dockerized version of chromedriver.
 
 - In the code open the file `tests/conftest.py` and comment out the code for `Scenario 1` and uncomment the code for `Scenario 2` as follows:
@@ -130,8 +131,7 @@ driver = Chrome(chrome_options=chrome_options)
 # --- end of Scenario 2
 ```
 - save the file
-
-## Run the tests
+#### Run the tests
 - From a `bash` shell run
 
 `python -m pytest --cache-clear  --html=report.html`
@@ -147,12 +147,12 @@ Use this scenario if your machine does not have a version of chromedriver instal
 
 For this you will be creating a Docker image that contains chromedriver, python and all the packages necessary to run the tests.
 
-## Create the Docker image
+#### Create the Docker image
 From the root directory of the project run `docker build -t podium:1 .`
 
 Do not forget the dot '.' at the end of that command.
 
-## Check the Docker image was created
+#### Check the Docker image was created
 Once the image is done building run the command `docker images`.  You should see a list of the available Docker images in your machine.  You should see the new image, `podium` with `TAG` 1, in the list
 
 ```
@@ -162,7 +162,7 @@ podium                             1             defe1e5e6178   40 seconds ago  
 selenium/standalone-chrome-debug   latest        6a3a9ed31627   4 days ago       1.04GB
 ```
 
-## Change the file conftest.py
+#### Change the file conftest.py
 You are now almost ready to run the tests on your machine and see them running, headless, inside the Docker image `podium:1`.
 
 - In the code open the file `tests/conftest.py` and comment out the code for `Scenario 1` and for `Scenario 2`, uncomment the code for `Scenario 3`, the configuration file should look like this:
@@ -198,15 +198,15 @@ driver.set_window_size(1920, 1080)
 ```
 - save the file
 
-## Run the Docker container and start a `bash` shell
+#### Run the Docker container and start a `bash` shell
 `docker run -it -w /usr/workspace -v $(pwd):/usr/workspace podium:1 bash`
 
-## Run the tests
+#### Run the tests
 - From the `bash` shell inside the image run:
 
 `python -m pytest --cache-clear  --html=report.html`
 
-## View the test results
+#### View the test results
 Because of personal time constraints I did not want to spend a lot of time figuring out how to expose the ports from within the Docker image so that the tests could be watched being run in the browser in VNC. The console will give you information about the tests running but you can't see them running in a browser.
 
 But remember for all scenarios a report file called `report.html` is created.  You can open it with your favorite browser and see the results of the tests.
