@@ -1,4 +1,5 @@
-# Exercise to test Podium's Home Page
+# Exercise to test User Interface functionality of a Web page
+This exercise in Web test automation tests some functionality of the page at https://podium.com
 
 ## To run the tests
 Scenarios 2 and 3 below require you to have a version of Docker installed and running on your machine.
